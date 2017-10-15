@@ -6,6 +6,7 @@ import java.util.Stack;
 public class EditorMethods {
     private static Stack<String>  item = new Stack<>();
     private static boolean check=false;
+    private static String lastItemIn;
 
     private  static void add(Stack<String>item) {
         System.out.println("Add  items, when you are done press any method. ");
@@ -21,22 +22,23 @@ public class EditorMethods {
                 add(item);
             }
 
-            if (newItem.equalsIgnoreCase("copy")){
+            else if (newItem.equalsIgnoreCase("copy")){
                 item.pop();
                 copy(item);
 
             }
-             if (newItem.equalsIgnoreCase("delete")){
+             else if (newItem.equalsIgnoreCase("delete")){
                 item.pop();
                 delete(item);
 
+
             }
-            if (newItem.equalsIgnoreCase("undo")){
+            else if (newItem.equalsIgnoreCase("undo")){
                 item.pop();
                 undo(item);
 
             }
-            if (newItem.equalsIgnoreCase("quit")){
+            else if (newItem.equalsIgnoreCase("quit")){
                 item.pop();
                 quitProgram();
 
@@ -58,8 +60,9 @@ public class EditorMethods {
 
     }
     private  static void startPrompt(){
-//        inputString();
+
         boolean begin = true;
+
 
         System.out.println("Please enter a command: ");
         Scanner sc = new Scanner(System.in);
@@ -103,40 +106,50 @@ public class EditorMethods {
         startPrompt();
     }
     public static void delete(Stack<String> st) {
-        System.out.println("Last item " +lastItem(st) +" deleted." );
         int sizeStack=st.size();
+        lastItemIn = st.peek();
+
+        System.out.println("Last item " + st.peek()+" deleted." );
         if  (sizeStack<=1){
             System.out.println("Stack is empty user other method");
             startPrompt();
         }
-        else
+
+        else {
             st.pop();
+        }
+
             check=true;
 
         System.out.println(item);
         startPrompt();
     }
     public static void undo(Stack<String> st){
+
         if (check==true) {
-            st.add(lastItem(st));
+            st.add(lastItem());
 
-            System.out.println("Last action has been undone.");
-            System.out.println(item);
+            System.out.println("Last item " + lastItem()+" has been undone.");
+
+
         }
-        else {
+        else  {
             System.out.println("Action denied !");
-            startPrompt();
-        }
 
+        }
         check=false;
+
+        startPrompt();
+
+
     }
     public static void quitProgram() {
         System.out.println("Goodbye");
         System.exit(0);
     }
-    public static String lastItem(Stack<String> st){
-        String last=st.peek();
-        return last;
+    public static String lastItem(){
+
+        return lastItemIn;
     }
 }
 
