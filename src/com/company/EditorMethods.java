@@ -71,10 +71,7 @@ public class EditorMethods {
             System.out.println("add || copy || delete || undo || quit " );
             String input = sc.nextLine();
 
-                if (input.equalsIgnoreCase("add")) {
-                    add(item);
-                    item.peek();
-                }
+
             while(!item.empty()) {
                 if (input.equalsIgnoreCase("copy")) {
                     item.peek();
@@ -84,9 +81,15 @@ public class EditorMethods {
                     delete(item);
                 } else if (input.equalsIgnoreCase("undo")) {
                     undo(item);
+                } else if (input.equalsIgnoreCase("quit")) {
+                    quitProgram();
                 }
             }
-               if  (input.equalsIgnoreCase("quit")) {
+            if (input.equalsIgnoreCase("add")) {
+                add(item);
+                item.peek();
+            }
+               else if  (input.equalsIgnoreCase("quit")) {
                   quitProgram();
               }
                 else {
@@ -146,6 +149,7 @@ public class EditorMethods {
     public static void quitProgram() {
         System.out.println("Goodbye");
         System.exit(0);
+        //System.out.println("Goodbye");
     }
     public static String lastItem(){
 
